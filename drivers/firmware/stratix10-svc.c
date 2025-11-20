@@ -230,6 +230,7 @@ static void svc_thread_cmd_data_claim(struct stratix10_svc_controller *ctrl,
 		ctrl->invoke_fn(INTEL_SIP_SMC_FPGA_CONFIG_COMPLETED_WRITE,
 				0, 0, 0, 0, 0, 0, 0, &res);
 
+		pr_warn("%s, a0: %lx, a1: %lx, a2: %lx, a3: %lx\n", __func__, res.a0, res.a1, res.a2, res.a3);
 		if (res.a0 == INTEL_SIP_SMC_STATUS_OK) {
 			if (!res.a1) {
 				/* Transaction of 4 blocks are now done */
