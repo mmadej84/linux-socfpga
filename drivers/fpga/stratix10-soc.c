@@ -10,6 +10,7 @@
 #include <linux/module.h>
 #include <linux/of.h>
 #include <linux/of_platform.h>
+#include <linux/delay.h>
 
 /*
  * FPGA programming requires a higher level of privilege (EL3), per the SoC
@@ -326,6 +327,7 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
 	long wait_status;
 	int sent = 0;
 	int ret = 0;
+	int i = 0;
 
 	/*
 	 * Loop waiting for buffers to be returned.  When a buffer is returned,
@@ -338,6 +340,10 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
 			sent = s10_send_buf(mgr, buf, count);
 			if (sent < 0)
 				continue;
+
+			i++;
+			if(i == 1)
+				msleep(1);
 
 			count -= sent;
 			buf += sent;
