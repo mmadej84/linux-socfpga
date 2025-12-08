@@ -342,7 +342,7 @@ static int s10_ops_write(struct fpga_manager *mgr, const char *buf,
 				continue;
 
 			i++;
-			if(i == 1)
+			if(i == 2)
 				msleep(1);
 
 			count -= sent;
